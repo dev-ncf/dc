@@ -23,6 +23,7 @@
 
                 </div>
             </div>
+            
 
             <aside class="col-span-12 lg:col-span-4 space-y-8">
                 <!-- INFO TÉCNICA -->

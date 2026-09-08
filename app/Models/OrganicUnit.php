@@ -15,4 +15,5 @@ class OrganicUnit extends Model
     public function projects(): HasMany { return $this->hasMany(ResearchProject::class); }
     public function courses(): HasMany { return $this->hasMany(Course::class); }
     public function researchLines(): HasMany { return $this->hasMany(ResearchLine::class); }
+    public function officials(): HasMany { return $this->hasMany(Official::class); }
 }

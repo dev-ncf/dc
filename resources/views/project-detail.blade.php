@@ -19,15 +19,7 @@
                         <p class="text-gray-600 text-lg leading-relaxed italic">{{ $project->abstract }}</p>
                     </div>
 
-                    <div>
-                        <h3 class="text-2xl font-black text-rovumaBlue uppercase mb-6 flex items-center gap-3">
-                            <span class="w-2 h-8 bg-rovumaGold rounded-full"></span>
-                            Metodologia e Descrição
-                        </h3>
-                        <div class="prose prose-blue max-w-none text-gray-700">
-                            {!! $project->description !!}
-                        </div>
-                    </div>
+                    
 
                 </div>
             </div>

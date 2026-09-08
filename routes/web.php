@@ -14,6 +14,13 @@ use App\Models\Event;
 use App\Livewire\ProjectExplorer;
 use App\Livewire\ProjectSubmission;
 use App\Models\ResearchProject;
+use App\Http\Controllers\InstitutionalController;
+
+
+Route::get('/estructura', [InstitutionalController::class, 'structure'])->name('institutional.structure');
+Route::get('/identidade-estrategica', [InstitutionalController::class, 'identity'])->name('institutional.identity');
+
+Route::get('/historial', [InstitutionalController::class, 'history'])->name('institutional.history');
 
 Route::get('/projectos', ProjectExplorer::class)->name('projects.index');
 

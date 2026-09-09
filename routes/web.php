@@ -15,6 +15,27 @@ use App\Livewire\ProjectExplorer;
 use App\Livewire\ProjectSubmission;
 use App\Models\ResearchProject;
 use App\Http\Controllers\InstitutionalController;
+use App\Livewire\ExtensionExplorer;
+use App\Livewire\ExtensionSubmission;
+use App\Livewire\InnovationExplorer;
+use App\Livewire\PolicyExplorer;
+use App\Livewire\PublicationPolicyExplorer;
+
+
+Route::get('/politicas-publicacoes', PublicationPolicyExplorer::class)->name('publication.policies.index');
+Route::get('/politicas-investigacao', PolicyExplorer::class)->name('policies.index');
+Route::get('/projectos-inovacao', InnovationExplorer::class);
+Route::get('/inovacao/{id}', function($id) {
+    $project = \App\Models\InnovationProject::with(['inventor', 'knowledgeArea'])->findOrFail($id);
+    return view('innovation-show', compact('project')); // Podes replicar o layout de detalhe adaptando para mercado e TRL
+});
+
+Route::get('/projectos-extensao', ExtensionExplorer::class);
+Route::get('/extensao/submeter-proposta', ExtensionSubmission::class);
+Route::get('/extensao/{id}', function($id) {
+    $project = \App\Models\ExtensionProject::with(['coordinator', 'knowledgeArea'])->findOrFail($id);
+    return view('extension-show', compact('project'));
+});
 
 
 Route::get('/estructura', [InstitutionalController::class, 'structure'])->name('institutional.structure');

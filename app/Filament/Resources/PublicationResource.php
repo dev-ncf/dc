@@ -59,7 +59,7 @@ class PublicationResource extends Resource
                             ->label('Faculdade (UniRovuma)')
                             ->relationship('organicUnit', 'name')
                             ->live()
-                            ->required(fn ($get) => in_array($get('document_type_id'), [1, 2, 3])) // Ex: IDs de Monografia/Tese
+                            ->nullable() // Ex: IDs de Monografia/Tese
                             ->helperText('Selecione se for um trabalho interno da UniRovuma'),
 
                         // Curso: Só aparece se a faculdade for selecionada
@@ -90,7 +90,8 @@ class PublicationResource extends Resource
                             ->label('Documento PDF')
                             ->directory('repository')
                             ->acceptedFileTypes(['application/pdf'])
-                            ->required(),
+                            ->required(fn (string $operation): bool => $operation === 'create')
+                            ->dehydrateStateUsing(fn ($state, ?Publication $record) => $state ?? $record?->file_path),
                         Forms\Components\Select::make('visibility')
                             ->options([
                                 'public' => 'Público Total',

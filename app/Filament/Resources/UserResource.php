@@ -33,7 +33,7 @@ class UserResource extends Resource
                 ->schema([
                     Forms\Components\Select::make('organic_unit_id')
                         ->relationship('organicUnit', 'sigla')
-                        ->searchable()->preload()->required(),
+                        ->searchable()->preload()->nullable(),
                     Forms\Components\Select::make('user_type')
                         ->options([
                             'admin' => 'Administrador',

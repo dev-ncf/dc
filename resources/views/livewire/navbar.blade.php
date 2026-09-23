@@ -16,8 +16,8 @@
                 <a href="/" class="flex items-center gap-3 shrink-0 group">
                     <img src="{{ asset('images/logo-rovuma.png') }}" alt="UniRovuma" class="h-12 md:h-14 w-auto transition-transform group-hover:scale-105">
                     <div class="flex flex-col border-l-2 border-gray-100 pl-3">
-                        <span class="text-rovumaBlue font-black text-base md:text-lg leading-none uppercase tracking-tighter italic">UniRovuma</span>
-                        <span class="text-rovumaGold font-bold text-[9px] uppercase tracking-[0.2em] mt-0.5">Direção Científica</span>
+                        <span class="text-rovumaBlue font-black text-base md:text-lg leading-none uppercase tracking-tighter ">Universidade Rovuma</span>
+                        <span class="text-rovumaGold font-bold text-[9px] uppercase tracking-[0.2em] mt-0.5">Direcção Científica</span>
                     </div>
                 </a>
 

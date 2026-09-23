@@ -3,6 +3,7 @@
     <img src="{{ asset('images/logo-rovuma.png') }}" alt="Logo UniRovuma" class="h-10 w-auto">
     
     <!-- Texto -->
+    
     <div class="flex flex-col">
         <span class="text-md font-bold leading-none tracking-tight text-blue-500">
             Universidade Rovuma

@@ -53,7 +53,7 @@
                     
                     <!-- Botão de Ação -->
                     <a href="/admin/login" class="ml-4 bg-rovumaGold text-white px-5 py-2 rounded-full text-[10px] font-black hover:bg-rovumaBlue transition shadow-md uppercase tracking-wider shrink-0">
-                        Portal do Investigador
+                        Iniciar Sessão
                     </a>
                 </div>
 

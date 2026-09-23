@@ -78,7 +78,7 @@ Route::get('/evento/{slug}', function ($slug) {
 Route::get('/investigacao/linhas', ResearchLinesExplorer::class)->name('research.lines');
 Route::get('/cursos', CourseCatalog::class)->name('cursos');
 
-Route::get('/submeter', PublicationSubmission::class)->name('submeter')->middleware('auth'); 
+Route::get('/submeter', PublicationSubmission::class)->name('submeter');
 
 Route::get('/repositorio/{slug}', function ($slug) {
     $publication = Publication::where('slug', $slug)

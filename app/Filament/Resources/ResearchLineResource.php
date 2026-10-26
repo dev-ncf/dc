@@ -3,17 +3,15 @@
 namespace App\Filament\Resources;
 
 use App\Filament\Resources\ResearchLineResource\Pages;
-use App\Filament\Resources\ResearchLineResource\RelationManagers;
 use App\Models\ResearchLine;
+use App\Models\Course;
 use Filament\Forms;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
-use Illuminate\Database\Eloquent\SoftDeletingScope;
 use Illuminate\Support\Str;
-
 
 class ResearchLineResource extends Resource
 {
@@ -21,6 +19,7 @@ class ResearchLineResource extends Resource
     protected static ?string $navigationIcon = 'heroicon-o-beaker';
     protected static ?string $navigationGroup = 'Produção Científica';
     protected static ?string $label = 'Linha de Pesquisa';
+    protected static ?string $pluralLabel = 'Linhas de Pesquisa';
 
     public static function form(Form $form): Form
     {
@@ -33,16 +32,37 @@ class ResearchLineResource extends Resource
                         ->live(onBlur: true)
                         ->afterStateUpdated(fn ($state, $set) => $set('slug', Str::slug($state))),
                     
-                    Forms\Components\TextInput::make('slug')->disabled()->dehydrated()->required(),
+                    Forms\Components\TextInput::make('slug')
+                        ->disabled()
+                        ->dehydrated()
+                        ->required(),
 
+                    // 1. Faculdade / Unidade Orgânica
                     Forms\Components\Select::make('organic_unit_id')
                         ->label('Faculdade Responsável')
                         ->relationship('organicUnit', 'name')
                         ->searchable()
                         ->preload()
+                        ->live() // Necessário para atualizar o campo de cursos dinamicamente se desejar
+                        ->afterStateUpdated(fn (callable $set) => $set('course_id', null)) // Limpa o curso ao mudar de faculdade
                         ->required(),
 
-                    Forms\Components\RichEditor::make('description')
+                    // 2. Curso Associado (Novo)
+                    Forms\Components\Select::make('course_id')
+                        ->label('Curso Específico')
+                        ->options(function (callable $get) {
+                            $organicUnitId = $get('organic_unit_id');
+                            if (!$organicUnitId) {
+                                return Course::pluck('name', 'id'); // Mostra todos se nenhuma faculdade estiver selecionada
+                            }
+                            return Course::where('organic_unit_id', $organicUnitId)->pluck('name', 'id'); // Filtra por faculdade
+                        })
+                        ->searchable()
+                        ->preload()
+                        ->nullable() // Pode ser opcional caso a linha seja geral da faculdade
+                        ->helperText('Selecione o curso a que esta linha pertence (opcional).'),
+
+                    Forms\Components\Textarea::make('description')
                         ->label('Descrição e Objetivos da Linha')
                         ->required()
                         ->columnSpanFull(),
@@ -59,19 +79,40 @@ class ResearchLineResource extends Resource
     {
         return $table
             ->columns([
-                Tables\Columns\TextColumn::make('title')->searchable()->sortable(),
+                Tables\Columns\TextColumn::make('title')
+                    ->label('Linha de Pesquisa')
+                    ->searchable()
+                    ->sortable(),
+
+                Tables\Columns\TextColumn::make('course.name')
+                    ->label('Curso')
+                    ->badge()
+                    ->color('success')
+                    ->searchable()
+                    ->sortable(),
+
                 Tables\Columns\TextColumn::make('organicUnit.sigla')
-                    ->label('Unidade')
+                    ->label('Faculdade')
                     ->badge()
                     ->color('primary'),
-                Tables\Columns\IconColumn::make('is_active')->boolean()->label('Status'),
+
+                Tables\Columns\IconColumn::make('is_active')
+                    ->boolean()
+                    ->label('Status'),
             ])
             ->filters([
                 Tables\Filters\SelectFilter::make('organic_unit_id')
                     ->label('Filtrar por Unidade')
-                    ->relationship('organicUnit', 'name')
+                    ->relationship('organicUnit', 'name'),
+
+                Tables\Filters\SelectFilter::make('course_id')
+                    ->label('Filtrar por Curso')
+                    ->relationship('course', 'name'),
             ])
-            ->actions([Tables\Actions\EditAction::make()]);
+            ->actions([
+                Tables\Actions\EditAction::make(),
+                Tables\Actions\DeleteAction::make(),
+            ]);
     }
 
     public static function getPages(): array

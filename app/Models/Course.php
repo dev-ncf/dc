@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo; // IMPORTANTE: Precisa des
 
 class Course extends Model
 {
-    protected $fillable = ['name', 'organic_unit_id'];
+    protected $fillable = ['name', 'level', 'regime', 'duration', 'description', 'organic_unit_id'];
 
     /**
      * Esta é a função que o Filament está a procurar.
@@ -17,4 +17,8 @@ class Course extends Model
     {
         return $this->belongsTo(OrganicUnit::class, 'organic_unit_id');
     }
+    public function researchLines()
+{
+    return $this->hasMany(ResearchLine::class);
+}
 }

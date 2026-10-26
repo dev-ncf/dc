@@ -23,7 +23,7 @@
                     Ver Repositório
                 </a>
                 <a href="{{ route('submeter') }}" class="border-2 border-white px-8 py-4 rounded-lg font-bold hover:bg-white hover:text-rovumaBlue transition text-white text-sm uppercase">
-                    Submeter Publicação
+                    Cadastrar Publicação
                 </a>
             </div>
         </div>

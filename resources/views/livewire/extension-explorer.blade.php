@@ -16,7 +16,7 @@
                     </div>
                     <a href="/extensao/submeter-proposta"
                         class="bg-rovumaBlue text-white px-8 py-4 rounded-2xl font-black text-xs uppercase tracking-widest hover:bg-rovumaGold transition shadow-xl text-center">
-                        Submeter Proposta de Extensão
+                        Cadastrar Projeto
                     </a>
                 </div>
 

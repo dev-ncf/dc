@@ -20,7 +20,12 @@ use App\Livewire\ExtensionSubmission;
 use App\Livewire\InnovationExplorer;
 use App\Livewire\PolicyExplorer;
 use App\Livewire\PublicationPolicyExplorer;
+use App\Livewire\PhDCourses;
+use App\Livewire\MasterCourses;
+use App\Http\Controllers\CourseDetailController;
 
+
+Route::get('/curso/{course}', [CourseDetailController::class, 'show'])->name('courses.show');
 
 Route::get('/politicas-publicacoes', PublicationPolicyExplorer::class)->name('publication.policies.index');
 Route::get('/politicas-investigacao', PolicyExplorer::class)->name('policies.index');
@@ -77,6 +82,8 @@ Route::get('/evento/{slug}', function ($slug) {
 
 Route::get('/investigacao/linhas', ResearchLinesExplorer::class)->name('research.lines');
 Route::get('/cursos', CourseCatalog::class)->name('cursos');
+Route::get('/cursos/doutoramento', PhDCourses::class)->name('cursos-doutoramento');
+Route::get('/cursos/mestrado', MasterCourses::class)->name('cursos-mestrado');
 
 Route::get('/submeter', PublicationSubmission::class)->name('submeter');
 

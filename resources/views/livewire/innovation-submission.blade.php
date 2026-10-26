@@ -3,7 +3,7 @@
     <div class="max-w-5xl mx-auto px-4 py-16">
         <div class="mb-12 text-center md:text-left">
             <span class="bg-rovumaGold text-white px-4 py-1 rounded-full text-[10px] font-black uppercase tracking-[0.3em] inline-block mb-3">Empreendedorismo & Patentes</span>
-            <h1 class="text-4xl font-black text-rovumaBlue uppercase tracking-tighter">Submeter Inovação ou Startup</h1>
+            <h1 class="text-4xl font-black text-rovumaBlue uppercase tracking-tighter">Cadastrar Projeto de Inovação</h1>
             <p class="text-rovumaGold font-bold mt-2">Transforme a sua investigação científica num produto ou solução comercializável.</p>
         </div>
 
@@ -84,7 +84,7 @@
 
                     <button type="submit" wire:loading.attr="disabled"
                         class="w-full bg-rovumaBlue text-white py-6 rounded-2xl font-black uppercase tracking-widest hover:bg-rovumaGold transition shadow-xl flex items-center justify-center gap-3">
-                        <span wire:loading.remove>Submeter Inovação</span>
+                        <span wire:loading.remove>Cadastrar</span>
                         <span wire:loading>A Enviar...</span>
                     </button>
                 </div>

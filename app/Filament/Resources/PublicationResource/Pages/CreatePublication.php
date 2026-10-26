@@ -12,7 +12,14 @@ class CreatePublication extends CreateRecord
      protected function mutateFormDataBeforeCreate(array $data): array
     {
         $data['user_id'] = auth()->id();
+        foreach ($data as $key => $value) {
+            
+            if (is_array($value) && $key !== 'keywords') {
+                $data[$key] = json_encode($value); 
+            }
+        }
 
         return $data;
     }
+     
 }

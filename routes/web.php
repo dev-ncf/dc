@@ -23,13 +23,15 @@ use App\Livewire\PublicationPolicyExplorer;
 use App\Livewire\PhDCourses;
 use App\Livewire\MasterCourses;
 use App\Http\Controllers\CourseDetailController;
-
+use App\Livewire\DocentesEmFormacaoList;
 
 Route::get('/curso/{course}', [CourseDetailController::class, 'show'])->name('courses.show');
 
 Route::get('/politicas-publicacoes', PublicationPolicyExplorer::class)->name('publication.policies.index');
 Route::get('/politicas-investigacao', PolicyExplorer::class)->name('policies.index');
 Route::get('/projectos-inovacao', InnovationExplorer::class);
+
+Route::get('/docentes-em-formacao', DocentesEmFormacaoList::class);
 Route::get('/inovacao/{id}', function($id) {
     $project = \App\Models\InnovationProject::with(['inventor', 'knowledgeArea'])->findOrFail($id);
     return view('innovation-show', compact('project')); // Podes replicar o layout de detalhe adaptando para mercado e TRL

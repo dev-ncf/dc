@@ -3,7 +3,6 @@
 namespace App\Filament\Resources;
 
 use App\Filament\Resources\UserResource\Pages;
-use App\Filament\Resources\UserResource\RelationManagers;
 use App\Models\User;
 use Filament\Forms;
 use Filament\Forms\Form;
@@ -23,9 +22,9 @@ class UserResource extends Resource
         return $form->schema([
             Forms\Components\Section::make('Dados Pessoais')
                 ->schema([
-                    Forms\Components\TextInput::make('name')->required(),
+                    Forms\Components\TextInput::make('name')->required()->label('Nome Completo'),
                     Forms\Components\TextInput::make('email')->email()->required()->unique(ignoreRecord: true),
-                    Forms\Components\TextInput::make('phone'),
+                    Forms\Components\TextInput::make('phone')->label('Telefone'),
                     Forms\Components\TextInput::make('orcid')->label('Identificador ORCID'),
                 ])->columns(2),
 
@@ -33,20 +32,28 @@ class UserResource extends Resource
                 ->schema([
                     Forms\Components\Select::make('organic_unit_id')
                         ->relationship('organicUnit', 'sigla')
-                        ->searchable()->preload()->nullable(),
-                    Forms\Components\Select::make('user_type')
-                        ->options([
-                            'admin' => 'Administrador',
-                            'docente' => 'Docente',
-                            'estudante' => 'Estudante',
-                            'parecerista' => 'Parecerista',
-                        ])->required(),
+                        ->searchable()->preload()->nullable()->label('Unidade Orgânica'),
+
+                    // ========================================================
+                    // APLICAÇÃO DE ROLES (PERFIS) VIA RELACIONAMENTO
+                    // ========================================================
+                    Forms\Components\Select::make('roles')
+                        ->relationship('roles', 'name')
+                        ->multiple() // Permite atribuir mais de um perfil se desejar
+                        ->preload()
+                        ->searchable()
+                        ->label('Perfis de Acesso (Roles)')
+                        ->required(),
+
                     Forms\Components\TextInput::make('password')
                         ->password()
                         ->dehydrated(fn ($state) => filled($state))
                         ->required(fn (string $context): bool => $context === 'create')
                         ->label(fn (string $context) => $context === 'edit' ? 'Nova Senha (deixe vazio para manter)' : 'Senha'),
-                    Forms\Components\Toggle::make('is_active')->default(true)->label('Conta Ativa'),
+
+                    Forms\Components\Toggle::make('is_active')
+                        ->default(true)
+                        ->label('Conta Ativa'),
                 ])->columns(2)
         ]);
     }
@@ -55,16 +62,26 @@ class UserResource extends Resource
     {
         return $table
             ->columns([
-                Tables\Columns\TextColumn::make('name')->searchable(),
-                Tables\Columns\TextColumn::make('email'),
+                Tables\Columns\TextColumn::make('name')->searchable()->label('Nome'),
+                Tables\Columns\TextColumn::make('email')->searchable(),
                 Tables\Columns\TextColumn::make('organicUnit.sigla')->label('Unidade')->badge(),
-                Tables\Columns\TextColumn::make('user_type')->label('Tipo')->sortable(),
-                Tables\Columns\IconColumn::make('is_active')->boolean(),
+                
+                // Exibe as Roles como Badges coloridas
+                Tables\Columns\TextColumn::make('roles.name')
+                    ->label('Perfis (Roles)')
+                    ->badge()
+                    ->color('primary')
+                    ->separator(','),
+
+                Tables\Columns\IconColumn::make('is_active')
+                    ->label('Ativo')
+                    ->boolean(),
             ])
             ->filters([
-                Tables\Filters\SelectFilter::make('user_type')->options([
-                    'admin' => 'Admin', 'docente' => 'Docente', 'estudante' => 'Estudante'
-                ]),
+                // Filtro por Role
+                Tables\Filters\SelectFilter::make('roles')
+                    ->relationship('roles', 'name')
+                    ->label('Filtrar por Perfil'),
             ]);
     }
 

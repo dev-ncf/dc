@@ -22,9 +22,9 @@
                 <a href="{{ route('repositorio') }}" class="bg-rovumaGold px-8 py-4 rounded-lg font-bold hover:bg-white hover:text-rovumaBlue transition shadow-lg text-sm uppercase">
                     Ver Repositório
                 </a>
-                <a href="{{ route('submeter') }}" class="border-2 border-white px-8 py-4 rounded-lg font-bold hover:bg-white hover:text-rovumaBlue transition text-white text-sm uppercase">
+                {{-- <a href="{{ route('submeter') }}" class="border-2 border-white px-8 py-4 rounded-lg font-bold hover:bg-white hover:text-rovumaBlue transition text-white text-sm uppercase">
                     Cadastrar Publicação
-                </a>
+                </a> --}}
             </div>
         </div>
     </section>

@@ -11,7 +11,7 @@
                     <p class="text-rovumaGold font-bold mt-2 border-l-4 border-rovumaGold pl-4">Soluções científicas transformadas em produtos de mercado</p>
                 </div>
                 <a href="/inovacao/submeter-proposta" class="bg-rovumaBlue text-white px-8 py-4 rounded-2xl font-black text-xs uppercase tracking-widest hover:bg-rovumaGold transition shadow-xl text-center">
-                    Cadastrar Inovação
+                    Submeter Inovação / Startup
                 </a>
             </div>
 

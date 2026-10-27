@@ -3,7 +3,7 @@
     <div class="max-w-5xl mx-auto px-4 py-16">
         <!-- CABEÇALHO -->
         <div class="mb-12 text-center md:text-left">
-            <h1 class="text-4xl font-black text-rovumaBlue uppercase tracking-tighter">Cadastrar Projeto de Investigação
+            <h1 class="text-4xl font-black text-rovumaBlue uppercase tracking-tighter">Submeter Proposta de Investigação
             </h1>
             <p class="text-rovumaGold font-bold mt-2">Contribua para o avanço científico da Universidade Rovuma.</p>
         </div>
@@ -126,7 +126,7 @@
 
                     <button type="submit" wire:loading.attr="disabled"
                         class="w-full bg-rovumaBlue text-white py-6 rounded-2xl font-black uppercase tracking-widest hover:bg-rovumaGold transition shadow-xl flex items-center justify-center gap-3">
-                        <span wire:loading.remove>Cadastrar</span>
+                        <span wire:loading.remove>Submeter Proposta</span>
                         <span wire:loading>A Enviar...</span>
                     </button>
                 </div>
